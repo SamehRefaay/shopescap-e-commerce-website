@@ -120,7 +120,7 @@ const Banner = ({ banners }: any) => {
 		autoplay: true,
 		autoplaySpeed: 1000,
 	};
-	console.log(banners);
+
 	return (
 		<div>
 			<Slider {...settings}>
