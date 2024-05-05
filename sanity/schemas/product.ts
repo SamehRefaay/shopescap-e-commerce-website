@@ -36,6 +36,11 @@ export default defineType({
 			},
 		}),
 		defineField({
+			name: 'color',
+			title: 'Color',
+			type: 'string',
+		}),
+		defineField({
 			name: 'category',
 			title: 'Category',
 			type: 'array',
