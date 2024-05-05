@@ -3,8 +3,7 @@ import { ProductProps } from '../../type';
 import Image from 'next/image';
 import { urlForImage } from '../../sanity/lib/image';
 import MarkLabel from './MarkLabel';
-import { BiCartAdd } from 'react-icons/bi';
-import { BiExpand } from 'react-icons/bi';
+import { BiCartAdd, BiExpand } from 'react-icons/bi';
 
 const Product = ({ product }: { product: ProductProps }) => {
 	return (
@@ -50,7 +49,7 @@ const Product = ({ product }: { product: ProductProps }) => {
 				<div className="w-full py-4 border-t-2 border-[#CCC]">
 					<div className="w-full flex items-center justify-between">
 						<p className="text-base font-medium">
-							{product?.title.substring(0, 18)}
+							{product?.title.substring(0, 25)}
 						</p>
 						<div className="flex gap-1">
 							{product.rowprice && (

@@ -111,16 +111,6 @@ const Banner = ({ banners }: any) => {
 		],
 	};
 
-	var settings2 = {
-		dots: true,
-		speed: 500,
-		slidesToShow: 1,
-		slidesToScroll: 1,
-		infinite: false,
-		autoplay: true,
-		autoplaySpeed: 1000,
-	};
-
 	return (
 		<div>
 			<Slider {...settings}>

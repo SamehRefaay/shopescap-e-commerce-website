@@ -18,8 +18,38 @@ const NewArrivals = ({ products, title }: Props) => {
 		speed: 500,
 		slidesToShow: 4,
 		slidesToScroll: 1,
+		initialSlide: 0,
 		prevArrow: <SliderLeftArrow />,
 		nextArrow: <SliderRightArrow />,
+		responsive: [
+			{
+				breakpoint: 1366,
+				settings: { slidesToShow: 4, slidesToScroll: 1 },
+			},
+
+			{
+				breakpoint: 1024,
+				settings: {
+					slidesToShow: 3,
+					slidesToScroll: 1,
+				},
+			},
+			{
+				breakpoint: 768,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 2,
+					initialSlide: 2,
+				},
+			},
+			{
+				breakpoint: 480,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+				},
+			},
+		],
 	};
 	return (
 		<Container className="-mt-48 z-20 relative">

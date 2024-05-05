@@ -8,7 +8,7 @@ const Cover = ({ image }: Props) => {
 	return (
 		<div className="mt-5 w-full h-64">
 			<Image
-				className={`w-full h-full object-fill`}
+				className={`w-full h-full object-scale-down md:object-cover`}
 				src={image}
 				alt="cover image"
 			/>
