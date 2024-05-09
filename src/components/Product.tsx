@@ -1,15 +1,18 @@
-import React from 'react';
 import { ProductProps } from '../../type';
 import Image from 'next/image';
 import { urlForImage } from '../../sanity/lib/image';
 import MarkLabel from './MarkLabel';
 import { BiCartAdd, BiExpand } from 'react-icons/bi';
+import Link from 'next/link';
 
 const Product = ({ product }: { product: ProductProps }) => {
 	return (
 		<div className="bg-white shadow-2xl m-2 p-4 cursor-pointer group">
 			<div className="relative flex flex-col justify-center items-center gap-5">
-				<div className="relative overflow-hidden">
+				<Link
+					href={`/product/${product.slug.current}`}
+					className="relative overflow-hidden"
+				>
 					<Image
 						src={urlForImage(product?.image)}
 						alt="product image"
@@ -38,14 +41,15 @@ const Product = ({ product }: { product: ProductProps }) => {
 								<p>Add to cart</p>
 							</div>
 						</button>
-						<button className=" py-2 px-4 rounded-md text-white bg-black bg-opacity-75 hover:bg-opacity-100">
-							<div className="flex gap-1">
-								<BiExpand size={20} />
-								<p>View Details</p>
-							</div>
-						</button>
+						<Link
+							href={`/product/${product.slug.current}`}
+							className="flex gap-1 py-2 px-4 rounded-md text-white bg-black bg-opacity-75 hover:bg-opacity-100"
+						>
+							<BiExpand size={20} />
+							<p>View Details</p>
+						</Link>
 					</div>
-				</div>
+				</Link>
 				<div className="w-full py-4 border-t-2 border-[#CCC]">
 					<div className="w-full flex items-center justify-between">
 						<p className="text-base font-medium">

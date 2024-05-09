@@ -13,16 +13,18 @@ import { HiMenuAlt2 } from 'react-icons/hi';
 const Navbar = () => {
 	const [searchQuery, setSearchQuery] = useState('');
 	const [small, setSmall] = useState(false);
+	const pathName = usePathname();
 
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
 			window.addEventListener('scroll', () =>
 				setSmall(window.pageYOffset > 200)
 			);
+		} else {
+			console.log('header set to small ');
+			setSmall(true);
 		}
-	}, []);
-
-	const pathName = usePathname();
+	}, [pathName]);
 
 	const navBarList = [
 		{ title: 'Home', href: '/' },
@@ -34,7 +36,7 @@ const Navbar = () => {
 	return (
 		<div
 			className={`sticky top-0 left-0 z-50 w-full ${
-				small ? 'h-24' : ''
+				small ? 'h-16' : 'h-40'
 			} transition-transform duration-300 bg-white border-b-[1px] border-b-gray-400`}
 		>
 			<nav className="h-full max-w-screen-xl mx-auto px-4 xl:px-0 flex items-center justify-between gap-2">
@@ -54,7 +56,15 @@ const Navbar = () => {
 							/>
 						</div>
 					) : (
-						<Image src={logo} alt="logo" className={'w-48'} />
+						<div className="">
+							<Image
+								src={logo}
+								alt="logo"
+								width={180}
+								height={180}
+								className="h-32 object-cover"
+							/>
+						</div>
 					)}
 				</Link>
 
