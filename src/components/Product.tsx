@@ -9,17 +9,16 @@ const Product = ({ product }: { product: ProductProps }) => {
 	return (
 		<div className="bg-white shadow-2xl m-2 p-4 cursor-pointer group">
 			<div className="relative flex flex-col justify-center items-center gap-5">
-				<Link
-					href={`/product/${product.slug.current}`}
-					className="relative overflow-hidden"
-				>
-					<Image
-						src={urlForImage(product?.image)}
-						alt="product image"
-						width={700}
-						height={700}
-						className="w-72 h-72 object-contain"
-					/>
+				<div className="relative overflow-hidden">
+					<Link href={`/product/${product.slug.current}`}>
+						<Image
+							src={urlForImage(product?.image)}
+							alt="product image"
+							width={700}
+							height={700}
+							className="w-72 h-72 object-contain"
+						/>
+					</Link>
 					{product.isnew && (
 						<div className="absolute top-0 left-0">
 							<MarkLabel
@@ -37,19 +36,21 @@ const Product = ({ product }: { product: ProductProps }) => {
 					<div className="absolute bottom-0 left-0 w-full flex justify-between items-center translate-y-20 group-hover:translate-y-0 transition-transform duration-300  ">
 						<button className=" py-2 px-4 rounded-md text-white bg-black bg-opacity-75 hover:bg-opacity-100">
 							<div className="flex gap-1">
-								<BiCartAdd size={20} />
-								<p>Add to cart</p>
+								<BiCartAdd size={15} />
+								<p className="text-sm">Add to cart</p>
 							</div>
 						</button>
-						<Link
-							href={`/product/${product.slug.current}`}
-							className="flex gap-1 py-2 px-4 rounded-md text-white bg-black bg-opacity-75 hover:bg-opacity-100"
-						>
-							<BiExpand size={20} />
-							<p>View Details</p>
-						</Link>
+						<div className="py-2 px-4 rounded-md text-white bg-black bg-opacity-75 hover:bg-opacity-100">
+							<Link href={`/product/${product.slug.current}`}>
+								<div className="flex gap-1 ">
+									<BiExpand size={15} />
+									<p className="text-sm">View Details</p>
+								</div>
+							</Link>
+						</div>
 					</div>
-				</Link>
+				</div>
+
 				<div className="w-full py-4 border-t-2 border-[#CCC]">
 					<div className="w-full flex items-center justify-between">
 						<p className="text-base font-medium">

@@ -16,15 +16,19 @@ const Navbar = () => {
 	const pathName = usePathname();
 
 	useEffect(() => {
-		if (typeof window !== 'undefined') {
-			window.addEventListener('scroll', () =>
-				setSmall(window.pageYOffset > 200)
-			);
-		} else {
-			console.log('header set to small ');
+		if (pathName !== '/') {
 			setSmall(true);
+		} else {
+			if (typeof window !== 'undefined') {
+				window.addEventListener('scroll', () =>
+					setSmall(window.pageYOffset > 200)
+				);
+			} else {
+				console.log('header set to small ');
+				setSmall(true);
+			}
 		}
-	}, [pathName]);
+	}, []);
 
 	const navBarList = [
 		{ title: 'Home', href: '/' },

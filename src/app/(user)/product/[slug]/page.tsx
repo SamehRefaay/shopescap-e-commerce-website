@@ -3,12 +3,11 @@ import { client } from '../../../../../sanity/lib/client';
 import { ProductProps } from '../../../../../type';
 import Image from 'next/image';
 import { urlForImage } from '../../../../../sanity/lib/image';
-import Link from 'next/link';
 import Container from '@/components/Container';
-import Price from '@/components/Price';
 import ProductDescription from '@/components/ProductDescription';
 import { PortableText } from '@portabletext/react';
 import { RichText } from '@/components/RichText';
+import OnSaleProduct from '@/components/OnSaleProduct';
 
 interface Props {
 	params: {
@@ -43,45 +42,25 @@ const ProductDetails = async ({ params: { slug } }: Props) => {
 
 	return (
 		<Container>
-			<div className="mt-10 p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 bg-gray-100">
-				<div className="w-full flex flex-col items-center justify-between gap-4">
+			<div className="mt-10 p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-2 bg-gray-100">
+				{/* On Sale Products */}
+				<div className="w-full flex flex-col items-center justify-between gap-2">
 					<h2 className="text-2xl underline font-bold">Product on sale</h2>
 					{onSaleProducts.slice(0, 4).map(item => (
-						<Link
-							key={item._id}
-							href={`/product/${item.slug.current}`}
-							className="w-full border-b-[1px] border-b-gray-300 flex justify-center items-center"
-						>
-							<div className="w-full flex justify-center gap-2 items-center">
-								<Image
-									className="w-[90px] h-[90px] object-contain"
-									src={urlForImage(item.image)}
-									alt="product image"
-									width={200}
-									height={200}
-								/>
-								<div>
-									<p className="text-sm font-semibold">
-										{item.title.substring(0, 9)}
-									</p>
-									<Price
-										className="text-sm font-semibold"
-										amount={item?.price}
-									/>
-								</div>
-							</div>
-						</Link>
+						<OnSaleProduct key={item._id} product={item} />
 					))}
 				</div>
-				<div className="col-span-2 grid place-content-center">
+				{/* Main Product image*/}
+				<div className="col-span-2 grid place-content-center bg-white">
 					<Image
-						className="w-[400px] h-[400px] object-contain"
+						className="w-[500px] h-[500px] object-contain"
 						src={urlForImage(product.image)}
 						alt="product image"
 						width={700}
 						height={700}
 					/>
 				</div>
+				{/* Product description */}
 				<div className="col-span-3">
 					<ProductDescription product={product} />
 				</div>
