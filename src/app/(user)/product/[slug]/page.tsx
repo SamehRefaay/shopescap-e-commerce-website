@@ -46,12 +46,15 @@ const ProductDetails = async ({ params: { slug } }: Props) => {
 				{/* On Sale Products */}
 				<div className="w-full flex flex-col items-center justify-between gap-2">
 					<h2 className="text-2xl underline font-bold">Product on sale</h2>
-					{onSaleProducts.slice(0, 4).map(item => (
-						<OnSaleProduct key={item._id} product={item} />
-					))}
+					{onSaleProducts
+						.sort(() => Math.random() - Math.random())
+						.slice(0, 4)
+						.map(item => (
+							<OnSaleProduct key={item._id} product={item} />
+						))}
 				</div>
 				{/* Main Product image*/}
-				<div className="col-span-2 grid place-content-center bg-white">
+				<div className="lg:col-span-2 grid place-content-center bg-white">
 					<Image
 						className="w-[500px] h-[500px] object-contain"
 						src={urlForImage(product.image)}
@@ -61,7 +64,7 @@ const ProductDetails = async ({ params: { slug } }: Props) => {
 					/>
 				</div>
 				{/* Product description */}
-				<div className="col-span-3">
+				<div className="lg:col-span-3">
 					<ProductDescription product={product} />
 				</div>
 			</div>
