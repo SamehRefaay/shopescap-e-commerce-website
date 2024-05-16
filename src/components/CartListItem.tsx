@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import { urlForImage } from '../../sanity/lib/image';
-import { ProductProps } from '../../type';
+import { ProductProps } from '@/lib/types';
 import { ImCross } from 'react-icons/im';
 import Price from './Price';
 import { useDispatch } from 'react-redux';

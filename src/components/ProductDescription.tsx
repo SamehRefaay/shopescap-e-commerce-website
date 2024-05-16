@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { Category, ProductProps } from '../../type';
+import { Category, ProductProps } from '../lib/type';
 import Price from './Price';
 import Rating from './Rating';
 import toast from 'react-hot-toast';

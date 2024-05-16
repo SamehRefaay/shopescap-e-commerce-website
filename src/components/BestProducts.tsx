@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from './Container';
-import { ProductProps } from '../../type';
+import { ProductProps } from '@/lib/types';
 import Product from './Product';
 import Heading from './Heading';
 

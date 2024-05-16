@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 import { MdSwitchAccount } from 'react-icons/md';
 import { RiShoppingCart2Fill } from 'react-icons/ri';
-import { StoreState } from '../../type';
+import { StoreState } from '../lib/type';
 
 const PageButton = () => {
 	const products = useSelector((state: StoreState) => state.cart);

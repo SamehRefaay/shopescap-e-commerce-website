@@ -1,5 +1,5 @@
 import Container from '@/components/Container';
-import { ProductProps } from '../../../../type';
+import { ProductProps } from '@/lib/types';
 import { client } from '../../../../sanity/lib/client';
 import { groq } from 'next-sanity';
 import ShopPageContent from '@/components/ShopPageContent';

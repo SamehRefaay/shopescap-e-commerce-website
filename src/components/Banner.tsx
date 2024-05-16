@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 import Slider from 'react-slick';
 import { urlForImage } from '../../sanity/lib/image';
 import 'slick-carousel/slick/slick.css';
-// import 'slick-carousel/slick/slick-theme.css';
 
 const Banner = ({ banners }: any) => {
 	const [dotActive, setDocActive] = useState(0);

@@ -1,7 +1,7 @@
 'use client';
 import Container from './Container';
 import Heading from './Heading';
-import { ProductProps } from '../../type';
+import { ProductProps } from '../lib/type';
 import Product from './Product';
 import Slider from 'react-slick';
 import SliderLeftArrow from './SliderLeftArrow';

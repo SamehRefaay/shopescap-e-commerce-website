@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { ProductProps } from '../../type';
+import { ProductProps } from '../lib/type';
 import { useState } from 'react';
 import { BsGridFill } from 'react-icons/bs';
 import { ImList } from 'react-icons/im';
