@@ -3,12 +3,16 @@ import { ProductProps } from '../../type';
 import Image from 'next/image';
 import { urlForImage } from '../../sanity/lib/image';
 import Link from 'next/link';
-import ProductDescription from './ProductDescription';
 import Price from './Price';
 import Rating from './Rating';
 import { BiCartAdd, BiExpand } from 'react-icons/bi';
+import { addToCart } from '@/lib/features/cart/cartSlice';
+import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
 
 const ProductListItem = ({ product }: { product: ProductProps }) => {
+	const dispatch = useDispatch();
+
 	return (
 		<div className="grid grid-cols-6 shadow-md group">
 			<Link
@@ -53,10 +57,17 @@ const ProductListItem = ({ product }: { product: ProductProps }) => {
 				</div>
 			</div>
 			<div className="col-span-1 p-4 flex flex-col gap-8 justify-center items-center translate-x-[1000px] duration-300 transition-transform group-hover:-translate-x-0 ">
-				<button className="w-full py-2 px-4 rounded-md text-white bg-black bg-opacity-75 hover:bg-opacity-100 ">
+				<button
+					onClick={() => {
+						dispatch(addToCart(product));
+						toast.success(
+							`${product.title.substring(0, 15)} .. added to cart successfully!`
+						);
+					}}
+					className="w-full py-2 px-4 rounded-md text-white bg-black bg-opacity-75 hover:bg-opacity-100 "
+				>
 					<div className="w-full flex gap-2 items-center justify-center">
 						<BiCartAdd size={25} />
-
 						<p className="text-base">Add to cart</p>
 					</div>
 				</button>

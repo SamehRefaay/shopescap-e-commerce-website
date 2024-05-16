@@ -3,6 +3,8 @@ import '../../styles/globals.css';
 import Navbar from '@/components/Navbar';
 import PageButton from '@/components/PageButton';
 import Footer from '@/components/Footer';
+import StoreProvider from '../../components/StoreProvider';
+import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
 	title: 'ShopeScape | Best place to shop',
@@ -17,10 +19,21 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body>
-				<Navbar />
-				<PageButton />
-				{children}
-				<Footer />
+				<StoreProvider>
+					<Navbar />
+					<PageButton />
+					{children}
+					<Toaster
+						position="bottom-right"
+						toastOptions={{
+							style: {
+								background: '#000',
+								color: '#fff',
+							},
+						}}
+					/>
+					<Footer />
+				</StoreProvider>
 			</body>
 		</html>
 	);

@@ -1,39 +1,19 @@
+'use client';
 import Link from 'next/link';
-import { ProductProps } from '../../type';
+import { Category, ProductProps } from '../../type';
 import Price from './Price';
-import { groq } from 'next-sanity';
-import { client } from '../../sanity/lib/client';
 import Rating from './Rating';
+import toast from 'react-hot-toast';
+import { addToCart } from '@/lib/features/cart/cartSlice';
+import { useDispatch } from 'react-redux';
 
 interface Props {
 	product: ProductProps;
-}
-interface Category {
-	_id: string;
-	title: string;
-	description: string;
+	categories: Category[];
 }
 
-const query = groq`*[_type=='category']{
-	_id,title,description
-}`;
-
-const ProductDescription = async ({ product }: Props) => {
-	const getCategories = async (ids: string[]) => {
-		let categories: Category[] = [];
-		const allCategories: Category[] = await client.fetch(query);
-
-		ids.map(id => {
-			allCategories.map(category => {
-				if (category._id === id) categories.push(category);
-			});
-		});
-		return categories;
-	};
-
-	const categoriesIds = product.category.map(category => category._ref);
-
-	const categories = await getCategories(categoriesIds);
+const ProductDescription = ({ product, categories }: Props) => {
+	const dispatch = useDispatch();
 
 	return (
 		<div className="p-4 flex flex-col gap-5 justify-center items-start">
@@ -56,7 +36,15 @@ const ProductDescription = async ({ product }: Props) => {
 			<p className="text-primeColor leading-relaxed font-medium">
 				Color: <span className="font-semibold">{product?.color}</span>
 			</p>
-			<button className="w-full bg-primeColor text-white text-2xl py-2 px-4 rounded-md">
+			<button
+				onClick={() => {
+					dispatch(addToCart(product));
+					toast.success(
+						`${product.title.substring(0, 15)} .. added to cart successfully!`
+					);
+				}}
+				className="w-full bg-primeColor text-white text-2xl py-2 px-4 rounded-md"
+			>
 				Add to Cart
 			</button>
 			<div className="flex gap-1 text-primeColor leading-relaxed font-medium">

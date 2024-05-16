@@ -1,6 +1,6 @@
 import { groq } from 'next-sanity';
 import { client } from '../../../../../sanity/lib/client';
-import { ProductProps } from '../../../../../type';
+import { Category, ProductProps } from '../../../../../type';
 import Image from 'next/image';
 import { urlForImage } from '../../../../../sanity/lib/image';
 import Container from '@/components/Container';
@@ -15,6 +15,21 @@ interface Props {
 	};
 }
 
+// Start Sanity Queries
+const productQuery = groq`*[_type=='product' && slug.current ==$slug][0]
+{
+	...
+}`;
+const onSaleProductsQuery = groq`*[_type=='product' && position =='Special Offers']
+{
+	...
+}| order(_createdAt desc)`;
+
+const categoryQuery = groq`*[_type=='category']{
+	_id,title,description
+}`;
+//  End Sanity Queries
+
 export const generateStaticParams = async () => {
 	const query = groq`*[_type=='product']{
         slug
@@ -25,20 +40,27 @@ export const generateStaticParams = async () => {
 	}));
 };
 
-const ProductDetails = async ({ params: { slug } }: Props) => {
-	const query = groq`*[_type=='product' && slug.current ==$slug][0]
-    {
-        ...
-    }`;
-	const onSaleProductsQuery = groq`*[_type=='product' && position =='Special Offers']
-    {
-        ...
-    }| order(_createdAt desc)`;
+const getCategories = async (ids: string[]) => {
+	let categories: Category[] = [];
+	const allCategories: Category[] = await client.fetch(categoryQuery);
 
-	const product: ProductProps = await client.fetch(query, { slug });
+	ids.map(id => {
+		allCategories.map(category => {
+			if (category._id === id) categories.push(category);
+		});
+	});
+	return categories;
+};
+
+const ProductDetails = async ({ params: { slug } }: Props) => {
+	const product: ProductProps = await client.fetch(productQuery, { slug });
+
 	const onSaleProducts: ProductProps[] = await client.fetch(
 		onSaleProductsQuery
 	);
+	const categoriesIds = product.category.map(category => category._ref);
+
+	const categories = await getCategories(categoriesIds);
 
 	return (
 		<Container>
@@ -64,8 +86,8 @@ const ProductDetails = async ({ params: { slug } }: Props) => {
 					/>
 				</div>
 				{/* Product description */}
-				<div className="lg:col-span-3">
-					<ProductDescription product={product} />
+				<div className="md:col-span-2 lg:col-span-3">
+					<ProductDescription product={product} categories={categories} />
 				</div>
 			</div>
 			<PortableText value={product?.body} components={RichText} />

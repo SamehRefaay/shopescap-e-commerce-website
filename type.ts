@@ -19,3 +19,13 @@ export interface ProductProps {
 	_type: string;
 	_updatedAt: string;
 }
+
+export interface Category {
+	_id: string;
+	title: string;
+	description: string;
+}
+
+export interface StoreState {
+	cart: ProductProps[];
+}

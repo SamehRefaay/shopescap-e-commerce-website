@@ -5,7 +5,7 @@ const Rating = ({
 	className,
 }: {
 	rating: number;
-	className: string;
+	className?: string;
 }) => {
 	return (
 		<div className={`${className} flex gap-1 justify-center items-center `}>
