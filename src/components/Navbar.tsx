@@ -9,11 +9,13 @@ import textLogo from '@/assets/logo-name.png';
 import { IoCloseOutline } from 'react-icons/io5';
 import { FaSearch } from 'react-icons/fa';
 import { HiMenuAlt2 } from 'react-icons/hi';
+import { signOut, useSession } from 'next-auth/react';
 
 const Navbar = () => {
 	const [searchQuery, setSearchQuery] = useState('');
 	const [small, setSmall] = useState(false);
 	const pathName = usePathname();
+	const { data: session } = useSession();
 
 	useEffect(() => {
 		if (pathName !== '/') {
@@ -31,7 +33,6 @@ const Navbar = () => {
 	}, []);
 
 	const navBarList = [
-		{ title: 'Home', href: '/' },
 		{ title: 'Shop', href: '/shop' },
 		{ title: 'Cart', href: '/cart' },
 		{ title: 'Profile', href: '/profile' },
@@ -103,6 +104,15 @@ const Navbar = () => {
 							{link.title}
 						</Link>
 					))}
+					{session?.user && (
+						<button
+							onClick={() => signOut()}
+							className={`flex w-14 h-6 justify-center items-center px-12 text-gray-600 hover:underline underline-offset-4 decoration-[1px] hover:font-medium hover:text-gray-950 border-r-[2px] border-r-gray-400  duration-200 last:border-r-0 
+							}`}
+						>
+							Logout
+						</button>
+					)}
 				</div>
 				<HiMenuAlt2 className="inline-flex md:hidden cursor-pointer w-8 h-6" />
 			</nav>
