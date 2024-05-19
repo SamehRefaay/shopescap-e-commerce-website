@@ -6,6 +6,8 @@ import { resetCart } from '@/lib/features/cart/cartSlice';
 import toast from 'react-hot-toast';
 import CartTableHeader from './CartTableHeader';
 import CartTotal from './CartTotal';
+import { loadStripe } from '@stripe/stripe-js';
+import { useSession } from 'next-auth/react';
 
 interface Props {
 	products: ProductProps[];
@@ -13,6 +15,7 @@ interface Props {
 
 const CartContent = ({ products }: Props) => {
 	const dispatch = useDispatch();
+	const { data: session } = useSession();
 
 	const calculateSubtotal = () => {
 		return products.reduce(
@@ -33,6 +36,34 @@ const CartContent = ({ products }: Props) => {
 			toast.success('Cart has been reset successfully!');
 		}
 	};
+
+	const stripePromise = loadStripe(
+		process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+	);
+
+	const handleCheckout = async () => {
+		if (session?.user) {
+			const stripe = await stripePromise;
+			const response = await fetch('http://localhost:3000/api/checkout', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					items: products,
+					email: session?.user?.email,
+				}),
+			});
+			const data = await response.json();
+			console.log(response);
+			if (response.ok) {
+				stripe?.redirectToCheckout({ sessionId: data.id });
+			}
+		} else {
+			toast.error('Please sign in to make checkout');
+		}
+	};
+
 	return (
 		<div className="mb-20">
 			<CartTableHeader />
@@ -62,7 +93,10 @@ const CartContent = ({ products }: Props) => {
 				total={calculateTotal()}
 			/>
 			<div className="mt-4 w-full flex justify-end text-center ">
-				<button className="w-full md:w-1/2 lg:w-1/3 p-4 opacity-90 hover:opacity-100 bg-black text-white">
+				<button
+					onClick={handleCheckout}
+					className="w-full md:w-1/2 lg:w-1/3 p-4 opacity-90 hover:opacity-100 bg-black text-white"
+				>
 					Proceed to checkout
 				</button>
 			</div>

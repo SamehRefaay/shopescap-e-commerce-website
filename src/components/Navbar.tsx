@@ -72,7 +72,6 @@ const Navbar = () => {
 						</div>
 					)}
 				</Link>
-
 				{/* search bar */}
 				<div className="relative hidden lg:inline-flex w-full lg:w-[500px] h-10 text-base text-primeColor border-[1px]  px-6 rounded-md justify-between items-center gap-2">
 					<input
