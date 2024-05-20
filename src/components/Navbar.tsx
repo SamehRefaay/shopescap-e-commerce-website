@@ -2,75 +2,39 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import logo from '@/assets/white-logo5.png';
-import figLogo from '@/assets/logo-fig.png';
-import textLogo from '@/assets/logo-name.png';
+import { useState } from 'react';
+import logo from '@/assets/white-logo.png';
 import { IoCloseOutline } from 'react-icons/io5';
 import { FaSearch } from 'react-icons/fa';
 import { HiMenuAlt2 } from 'react-icons/hi';
 import { signOut, useSession } from 'next-auth/react';
 
+const navBarList = [
+	{ title: 'Shop', href: '/shop' },
+	{ title: 'Cart', href: '/cart' },
+	{ title: 'Profile', href: '/profile' },
+	{ title: 'Studio', href: '/studio' },
+];
+
 const Navbar = () => {
 	const [searchQuery, setSearchQuery] = useState('');
-	const [small, setSmall] = useState(false);
 	const pathName = usePathname();
 	const { data: session } = useSession();
 
-	useEffect(() => {
-		if (pathName !== '/') {
-			setSmall(true);
-		} else {
-			if (typeof window !== 'undefined') {
-				window.addEventListener('scroll', () =>
-					setSmall(window.pageYOffset > 200)
-				);
-			} else {
-				console.log('header set to small ');
-				setSmall(true);
-			}
-		}
-	}, []);
-
-	const navBarList = [
-		{ title: 'Shop', href: '/shop' },
-		{ title: 'Cart', href: '/cart' },
-		{ title: 'Profile', href: '/profile' },
-		{ title: 'Studio', href: '/studio' },
-	];
 	return (
 		<div
-			className={`sticky top-0 left-0 z-50 w-full ${
-				small ? 'h-16' : 'h-40'
-			} transition-transform duration-300 bg-white border-b-[1px] border-b-gray-400`}
+			className={`sticky top-0 left-0 z-50 w-full h-20 transition-transform duration-300 bg-white border-b-[1px] border-b-gray-400`}
 		>
 			<nav className="h-full max-w-screen-xl mx-auto px-4 xl:px-0 flex items-center justify-between gap-2">
 				{/* logo */}
 				<Link href={'/'}>
-					{small ? (
-						<div className="flex items-center">
-							<Image
-								src={figLogo}
-								alt="logo"
-								className={'w-14 animate-pulse'}
-							/>
-							<Image
-								src={textLogo}
-								alt="logo"
-								className={'w-36 -translate-x-4'}
-							/>
-						</div>
-					) : (
-						<div className="">
-							<Image
-								src={logo}
-								alt="logo"
-								width={180}
-								height={180}
-								className="h-32 object-cover"
-							/>
-						</div>
-					)}
+					<Image
+						className="h-14 object-contain"
+						src={logo}
+						alt="logo"
+						width={180}
+						height={100}
+					/>
 				</Link>
 				{/* search bar */}
 				<div className="relative hidden lg:inline-flex w-full lg:w-[500px] h-10 text-base text-primeColor border-[1px]  px-6 rounded-md justify-between items-center gap-2">

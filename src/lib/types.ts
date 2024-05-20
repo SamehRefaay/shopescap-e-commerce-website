@@ -29,3 +29,12 @@ export interface Category {
 export interface StoreState {
 	cart: ProductProps[];
 }
+
+export interface OrderProps {
+	title: string;
+	description: string;
+	message: string;
+	status: string;
+	method: string;
+	amount: number;
+}

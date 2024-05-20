@@ -4,14 +4,21 @@ import CartListItem from '@/components/CartListItem';
 import { useDispatch } from 'react-redux';
 import { resetCart } from '@/lib/features/cart/cartSlice';
 import toast from 'react-hot-toast';
-import CartTableHeader from './CartTableHeader';
 import CartTotal from './CartTotal';
 import { loadStripe } from '@stripe/stripe-js';
 import { useSession } from 'next-auth/react';
+import TableHeader from './TableHeader';
 
 interface Props {
 	products: ProductProps[];
 }
+
+const cartHeaders = [
+	{ key: 'h001', colspan: 'col-span-2', title: 'Product' },
+	{ key: 'h002', colspan: 'col-span-1', title: 'Price' },
+	{ key: 'h003', colspan: 'col-span-1', title: 'Quantity' },
+	{ key: 'h004', colspan: 'col-span-1', title: 'Sub Total' },
+];
 
 const CartContent = ({ products }: Props) => {
 	const dispatch = useDispatch();
@@ -66,7 +73,7 @@ const CartContent = ({ products }: Props) => {
 
 	return (
 		<div className="mb-20">
-			<CartTableHeader />
+			<TableHeader headers={cartHeaders} className="md:grid-cols-5" />
 			{products.map(product => (
 				<CartListItem key={product?._id} product={product} />
 			))}

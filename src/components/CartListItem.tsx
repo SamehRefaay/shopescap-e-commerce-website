@@ -60,7 +60,7 @@ const CartListItem = ({ product }: Props) => {
 						if (product.quantity > 1) {
 							dispatch(decreaseQuantity(product));
 						} else {
-							toast.error('You can not decrease more than this.');
+							toast.error('You can not decrease less than one.');
 						}
 					}}
 				>
