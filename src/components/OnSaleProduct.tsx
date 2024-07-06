@@ -1,10 +1,9 @@
 import Link from 'next/link';
 import React from 'react';
-import { ProductProps } from '../lib/type';
+import { ProductProps } from '@/lib/types';
 import Image from 'next/image';
 import { urlForImage } from '../../sanity/lib/image';
 import Price from './Price';
-import { FaStar } from 'react-icons/fa';
 import Rating from './Rating';
 
 interface Props {
