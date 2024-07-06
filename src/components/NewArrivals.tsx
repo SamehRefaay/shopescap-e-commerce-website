@@ -1,11 +1,12 @@
 'use client';
 import Container from './Container';
-import Heading from './Heading';
-import { ProductProps } from '../lib/type';
+import { ProductProps } from '@/lib/types';
 import Product from './Product';
 import Slider from 'react-slick';
 import SliderLeftArrow from './SliderLeftArrow';
 import SliderRightArrow from './SliderRightArrow';
+import { Suspense } from 'react';
+import ProductLoadingSkeleton from './ProductLoadingSkeleton';
 
 interface Props {
 	products: ProductProps[];

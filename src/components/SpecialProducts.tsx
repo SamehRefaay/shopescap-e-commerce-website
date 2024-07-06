@@ -11,12 +11,12 @@ interface Props {
 	title: string;
 }
 
-const bestSellersQuery = groq`*[_type == 'product'&& position == 'Bestsellers']{
+const specialOffersQuery = groq`*[_type == 'product'&& position == 'Special Offers']{
 	...
   } | order(_createdAt asc)`;
 
-const BestProducts = async ({ title }: Props) => {
-	const products: ProductProps[] = await client.fetch(bestSellersQuery);
+const SpecialProducts = async ({ title }: Props) => {
+	const products: ProductProps[] = await client.fetch(specialOffersQuery);
 	return (
 		<Container className="mt-5">
 			<Heading title={title} />
@@ -33,4 +33,4 @@ const BestProducts = async ({ title }: Props) => {
 	);
 };
 
-export default BestProducts;
+export default SpecialProducts;

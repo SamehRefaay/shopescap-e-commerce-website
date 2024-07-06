@@ -1,5 +1,5 @@
 'use client';
-import { ProductProps } from '../lib/type';
+import { ProductProps } from '@/lib/types';
 import Image from 'next/image';
 import { urlForImage } from '../../sanity/lib/image';
 import MarkLabel from './MarkLabel';
