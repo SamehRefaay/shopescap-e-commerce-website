@@ -5,8 +5,6 @@ import Product from './Product';
 import Slider from 'react-slick';
 import SliderLeftArrow from './SliderLeftArrow';
 import SliderRightArrow from './SliderRightArrow';
-import { Suspense } from 'react';
-import ProductLoadingSkeleton from './ProductLoadingSkeleton';
 
 interface Props {
 	products: ProductProps[];
